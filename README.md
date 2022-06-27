@@ -1,2 +1,3 @@
 # Rato_bionico
-Api para crud SQL
+Api para o TCC do curso Desenvolvimento de sistemas
+Com muito trabalho vou guardar esse código e levar para minha vida <3
