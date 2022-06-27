@@ -10,7 +10,7 @@ function execSQLQuery(sqlQry, res){
     port     : 3306,
     user     : 'root',
     password : '',
-    database : 'teste'
+    database : 'bookplay'
   });
 
   connection.query(sqlQry, (error, results, fields) => {
@@ -40,14 +40,14 @@ console.log('A rataria começou');
 app.get('/usuarios/:id?', (req, res) => {
   let filter = '';
   if(req.params.id) filter = ' WHERE ID=' + parseInt(req.params.id);
-  execSQLQuery('SELECT * FROM usuarios' + filter, res);
+  execSQLQuery('SELECT * FROM usuario' + filter, res);
 });
 
 ////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////// MATA RATO ////////////////////////////////
 
 app.delete('/usuarios/:id', (req, res) =>{
-  execSQLQuery('DELETE FROM usuarios WHERE ID=' + parseInt(req.params.id), res);
+  execSQLQuery('DELETE FROM usuario WHERE id_usuario=' + parseInt(req.params.id), res);
 });
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -55,8 +55,13 @@ app.delete('/usuarios/:id', (req, res) =>{
 
 app.post('/usuarios', (req, res) => {
   const nome = req.body.nome.substring(0,150);
-  const idade = req.body.idade.substring(0,150);
-  execSQLQuery(`INSERT INTO usuarios(nome, idade) VALUES('${nome}','${idade}')`, res);
+  const nasc = req.body.nasc.substring(0,150);
+  const genero = req.body.genero.substring(0,150);
+  const nick = req.body.nick.substring(0,150);
+  const tel = req.body.tel.substring(0,150);
+  const email = req.body.email.substring(0,150);
+  const senha = req.body.senha.substring(0,150);
+  execSQLQuery(`INSERT INTO usuario(nome, nasc, genero, nick, tel, email, senha) VALUES('${nome}', ${nasc}, '${genero}', '${nick}', ${tel}, '${email}', '${senha}')`, res);
 });
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -65,8 +70,13 @@ app.post('/usuarios', (req, res) => {
 app.patch('/usuarios/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const nome = req.body.nome.substring(0,150);
-  const idade = parseInt(req.body.idade);
-  execSQLQuery(`UPDATE usuarios SET nome='${nome}', idade='${idade}' WHERE ID=${id}`, res);
+  const nasc = req.body.nasc.substring(0,150);
+  const genero = req.body.genero.substring(0,150);
+  const nick = req.body.nick.substring(0,150);
+  const tel = req.body.tel.substring(0,150);
+  const email = req.body.email.substring(0,150);
+  const senha = req.body.senha.substring(0,150);
+  execSQLQuery(`UPDATE usuario SET nome='${nome}', nasc=${nasc}, genero='${genero}', nick='${nick}', tel=${tel}, email='${email}', senha='${senha}' WHERE id_usuario=${id}`, res);
 });
 
-/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
