@@ -73,7 +73,16 @@ app.get('/usuarios/:id?', (req, res) => {
   execSQLQuery('SELECT * FROM usuario' + filter, res);
 });
 
-////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////// LOGAR RATO ////////////////////////////////////////
+
+app.get('/logar/:email?', (req, res) => {
+  let filter = '';
+  if(req.params.email) filter = ' WHERE email=' + req.params.email.substring(0,180);;
+  execSQLQuery('SELECT * FROM usuario' + filter, res);
+});
+
+////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////// MATA RATO ////////////////////////////////
 
 app.delete('/usuarios/:id', (req, res) =>{
@@ -89,7 +98,7 @@ app.post('/usuarios', (req, res) => {
   const genero = req.body.genero.substring(0,150);
   const nick = req.body.nick.substring(0,150);
   const tel = req.body.tel.substring(0,150);
-  const email = req.body.email.substring(0,150);
+  const email = req.body.email.substring(0,180);
   const senha = req.body.senha.substring(0,150);
   execSQLQuery(`INSERT INTO usuario(nome, nasc, genero, nick, tel, email, senha) VALUES('${nome}', ${nasc}, '${genero}', '${nick}', ${tel}, '${email}', '${senha}')`, res);
 });
@@ -104,7 +113,7 @@ app.patch('/usuarios/:id', (req, res) => {
   const genero = req.body.genero.substring(0,150);
   const nick = req.body.nick.substring(0,150);
   const tel = req.body.tel.substring(0,150);
-  const email = req.body.email.substring(0,150);
+  const email = req.body.email.substring(0,180);
   const senha = req.body.senha.substring(0,150);
   execSQLQuery(`UPDATE usuario SET nome='${nome}', nasc=${nasc}, genero='${genero}', nick='${nick}', tel=${tel}, email='${email}', senha='${senha}' WHERE id_usuario=${id}`, res);
 });
